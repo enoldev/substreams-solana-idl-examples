@@ -1,0 +1,167 @@
+syntax = "proto3";
+
+package substreams.v1.program;
+
+message Data {
+    repeated ClaimEvent_Event claim_event_event_list = 1;
+    repeated CompleteEvent_Event complete_event_event_list = 2;
+    repeated CreateEvent_Event create_event_event_list = 3;
+    repeated GlobalUpdateEvent_Event global_update_event_event_list = 4;
+    repeated TradeEvent_Event trade_event_event_list = 5;
+    repeated VestingEvent_Event vesting_event_event_list = 6;
+    repeated WithdrawEvent_Event withdraw_event_event_list = 7;
+    repeated ClaimVestedTokens_Instruction claim_vested_tokens_instruction_list = 8;
+    repeated CreateBondingCurve_Instruction create_bonding_curve_instruction_list = 9;
+    repeated GetClaimableTokens_Instruction get_claimable_tokens_instruction_list = 10;
+    repeated Initialize_Instruction initialize_instruction_list = 11;
+    repeated Migrate_Instruction migrate_instruction_list = 12;
+    repeated SetConfig_Instruction set_config_instruction_list = 13;
+    repeated Swap_Instruction swap_instruction_list = 14;
+}
+message ClaimEvent_Event {
+  string trx_hash = 1;
+}message CompleteEvent_Event {
+  string trx_hash = 1;
+}message CreateEvent_Event {
+  string trx_hash = 1;
+}message GlobalUpdateEvent_Event {
+  string trx_hash = 1;
+}message TradeEvent_Event {
+  string trx_hash = 1;
+}message VestingEvent_Event {
+  string trx_hash = 1;
+}message WithdrawEvent_Event {
+  string trx_hash = 1;
+}
+
+message ClaimVestedTokens_Instruction {
+  string trx_hash = 1;
+    string acct_global = 2;
+    string acct_bonding_curve = 3;
+    string acct_creator = 4;
+    string acct_creator_token_account = 5;
+    string acct_mint = 6;
+    string acct_bonding_curve_token_account = 7;
+    string acct_event_authority = 8;
+    string acct_program = 9;
+}
+message CreateBondingCurve_Instruction {
+  string trx_hash = 1;
+    CreateBondingCurveParams params = 2;
+    string acct_mint = 3;
+    string acct_creator = 4;
+    string acct_fren_mint = 5;
+    string acct_bonding_curve = 6;
+    string acct_bonding_curve_token_account = 7;
+    string acct_bonding_curve_fren_account = 8;
+    string acct_global = 9;
+    string acct_whitelist = 10;
+    string acct_metadata = 11;
+    string acct_system_program = 12;
+    string acct_associated_token_program = 13;
+    string acct_token_metadata_program = 14;
+    string acct_rent = 15;
+    string acct_event_authority = 16;
+    string acct_program = 17;
+}
+message GetClaimableTokens_Instruction {
+  string trx_hash = 1;
+    string acct_bonding_curve = 2;
+    string acct_creator = 3;
+}
+message Initialize_Instruction {
+  string trx_hash = 1;
+    GlobalSettingsInput params = 2;
+    string acct_authority = 3;
+    string acct_global = 4;
+    string acct_event_authority = 5;
+    string acct_program = 6;
+}
+message Migrate_Instruction {
+  string trx_hash = 1;
+    string acct_global = 2;
+    string acct_bonding_curve = 3;
+    string acct_mint = 4;
+    string acct_bonding_curve_token_account = 5;
+    string acct_bonding_curve_fren_account = 6;
+    string acct_migration_vault = 7;
+    string acct_creator = 8;
+    string acct_amm_config = 9;
+    string acct_authority = 10;
+    string acct_pool_state = 11;
+    string acct_token_0_mint = 12;
+    string acct_token_1_mint = 13;
+    string acct_lp_mint = 14;
+    string acct_creator_token_0 = 15;
+    string acct_creator_token_1 = 16;
+    string acct_creator_lp_token = 17;
+    string acct_token_0_vault = 18;
+    string acct_token_1_vault = 19;
+    string acct_observation_state = 20;
+    string acct_token_0_program = 21;
+    string acct_token_1_program = 22;
+    string acct_event_authority = 23;
+    string acct_program = 24;
+}
+message SetConfig_Instruction {
+  string trx_hash = 1;
+    GlobalSettingsInput params = 2;
+    string acct_authority = 3;
+    string acct_global = 4;
+    string acct_new_authority = 5;
+    string acct_new_migration_authority = 6;
+    string acct_event_authority = 7;
+    string acct_program = 8;
+}
+message Swap_Instruction {
+  string trx_hash = 1;
+    SwapParams params = 2;
+    string acct_user = 3;
+    string acct_global = 4;
+    string acct_fee_receiver = 5;
+    string acct_mint = 6;
+    string acct_fren_mint = 7;
+    string acct_bonding_curve = 8;
+    string acct_bonding_curve_token_account = 9;
+    string acct_bonding_curve_fren_account = 10;
+    string acct_user_token_account = 11;
+    string acct_user_fren_account = 12;
+    string acct_fee_receiver_fren_account = 13;
+    string acct_event_authority = 14;
+    string acct_program = 15;
+}
+
+
+message CreateBondingCurveParams {
+      string name = 1;
+      string symbol = 2;
+      string uri = 3;
+      optional  int64 start_time = 4;
+}
+message GlobalSettingsInput {
+      optional  uint64 initial_virtual_token_reserves = 1;
+      optional  uint64 initial_virtual_sol_reserves = 2;
+      optional  uint64 initial_real_token_reserves = 3;
+      optional  uint64 token_total_supply = 4;
+      optional  uint64 creator_reserves = 5;
+      optional  uint64 escrow_reserves = 6;
+      optional  uint64 mint_decimals = 7;
+      optional  uint64 migrate_fee_amount = 8;
+      optional  int64 cliff_duration = 9;
+      optional  int64 vesting_duration = 10;
+      optional  string fee_receiver = 11;
+      optional  ProgramStatusEnum status = 12;
+      optional  bool whitelist_enabled = 13;
+      optional  string raydiyum_config = 14;
+}
+enum ProgramStatusEnum {
+    PROGRAM_STATUS_RUNNING = 0;
+    PROGRAM_STATUS_SWAP_ONLY = 1;
+    PROGRAM_STATUS_SWAP_ONLY_NO_LAUNCH = 2;
+    PROGRAM_STATUS_PAUSED = 3;
+}
+message SwapParams {
+      bool base_in = 1;
+      uint64 exact_in_amount = 2;
+      uint64 min_out_amount = 3;
+}
