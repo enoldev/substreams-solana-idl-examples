@@ -1,0 +1,1 @@
+A collection of Substreams decoded with Solana Anchor IDLs.
