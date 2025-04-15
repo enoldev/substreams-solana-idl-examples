@@ -39,4 +39,4 @@ modules:
      query:
        string: program:LanD8FpTBBvzZFXjTxsAoipkFsxPUCDB4qAqKxYDiNP
 
-network: solana-mainnet 
+network: solana-devnet 
