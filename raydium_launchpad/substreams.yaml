@@ -37,6 +37,6 @@ modules:
    blockFilter:
      module: solana:program_ids_without_votes
      query:
-       string: program:LanD8FpTBBvzZFXjTxsAoipkFsxPUCDB4qAqKxYDiNP
+       string: program:LanMV9sAd7wArD4vJFi2qDdfnVhFxYSUg6eADduJ3uj
 
-network: solana-devnet 
+network: solana-mainnet 

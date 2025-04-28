@@ -11,3 +11,5 @@ sink-data/
 *.spkg
 
 replay.log
+
+.DS_Store

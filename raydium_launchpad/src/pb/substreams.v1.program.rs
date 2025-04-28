@@ -48,24 +48,78 @@ pub struct Data {
 pub struct ClaimVestedEventEvent {
     #[prost(string, tag="1")]
     pub trx_hash: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub pool_state: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub beneficiary: ::prost::alloc::string::String,
+    #[prost(uint64, tag="4")]
+    pub claim_amount: u64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateVestingEventEvent {
     #[prost(string, tag="1")]
     pub trx_hash: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub pool_state: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub beneficiary: ::prost::alloc::string::String,
+    #[prost(uint64, tag="4")]
+    pub share_amount: u64,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PoolCreateEventEvent {
     #[prost(string, tag="1")]
     pub trx_hash: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub pool_state: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub creator: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub config: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="5")]
+    pub base_mint_param: ::core::option::Option<MintParams>,
+    #[prost(enumeration="CurveParamsEnum", tag="6")]
+    pub curve_param: i32,
+    #[prost(message, optional, tag="7")]
+    pub vesting_param: ::core::option::Option<VestingParams>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TradeEventEvent {
     #[prost(string, tag="1")]
     pub trx_hash: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub pool_state: ::prost::alloc::string::String,
+    #[prost(uint64, tag="3")]
+    pub total_base_sell: u64,
+    #[prost(uint64, tag="4")]
+    pub virtual_base: u64,
+    #[prost(uint64, tag="5")]
+    pub virtual_quote: u64,
+    #[prost(uint64, tag="6")]
+    pub real_base_before: u64,
+    #[prost(uint64, tag="7")]
+    pub real_quote_before: u64,
+    #[prost(uint64, tag="8")]
+    pub real_base_after: u64,
+    #[prost(uint64, tag="9")]
+    pub real_quote_after: u64,
+    #[prost(uint64, tag="10")]
+    pub amount_in: u64,
+    #[prost(uint64, tag="11")]
+    pub amount_out: u64,
+    #[prost(uint64, tag="12")]
+    pub protocol_fee: u64,
+    #[prost(uint64, tag="13")]
+    pub platform_fee: u64,
+    #[prost(uint64, tag="14")]
+    pub share_fee: u64,
+    #[prost(enumeration="TradeDirectionEnum", tag="15")]
+    pub trade_direction: i32,
+    #[prost(enumeration="PoolStatusEnum", tag="16")]
+    pub pool_status: i32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -649,6 +703,61 @@ impl PlatformConfigParamEnum {
             "PLATFORM_CONFIG_PARAM_NAME" => Some(Self::PlatformConfigParamName),
             "PLATFORM_CONFIG_PARAM_WEB" => Some(Self::PlatformConfigParamWeb),
             "PLATFORM_CONFIG_PARAM_IMG" => Some(Self::PlatformConfigParamImg),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum PoolStatusEnum {
+    PoolStatusFund = 0,
+    PoolStatusMigrate = 1,
+    PoolStatusTrade = 2,
+}
+impl PoolStatusEnum {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            PoolStatusEnum::PoolStatusFund => "POOL_STATUS_FUND",
+            PoolStatusEnum::PoolStatusMigrate => "POOL_STATUS_MIGRATE",
+            PoolStatusEnum::PoolStatusTrade => "POOL_STATUS_TRADE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "POOL_STATUS_FUND" => Some(Self::PoolStatusFund),
+            "POOL_STATUS_MIGRATE" => Some(Self::PoolStatusMigrate),
+            "POOL_STATUS_TRADE" => Some(Self::PoolStatusTrade),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum TradeDirectionEnum {
+    TradeDirectionBuy = 0,
+    TradeDirectionSell = 1,
+}
+impl TradeDirectionEnum {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            TradeDirectionEnum::TradeDirectionBuy => "TRADE_DIRECTION_BUY",
+            TradeDirectionEnum::TradeDirectionSell => "TRADE_DIRECTION_SELL",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "TRADE_DIRECTION_BUY" => Some(Self::TradeDirectionBuy),
+            "TRADE_DIRECTION_SELL" => Some(Self::TradeDirectionSell),
             _ => None,
         }
     }

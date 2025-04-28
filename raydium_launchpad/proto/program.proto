@@ -26,12 +26,39 @@ message Data {
 }
 message ClaimVestedEvent_Event {
   string trx_hash = 1;
+      string pool_state = 2;
+      string beneficiary = 3;
+      uint64 claim_amount = 4;
 }message CreateVestingEvent_Event {
   string trx_hash = 1;
+      string pool_state = 2;
+      string beneficiary = 3;
+      uint64 share_amount = 4;
 }message PoolCreateEvent_Event {
   string trx_hash = 1;
+      string pool_state = 2;
+      string creator = 3;
+      string config = 4;
+      MintParams base_mint_param = 5;
+      CurveParamsEnum curve_param = 6;
+      VestingParams vesting_param = 7;
 }message TradeEvent_Event {
   string trx_hash = 1;
+      string pool_state = 2;
+      uint64 total_base_sell = 3;
+      uint64 virtual_base = 4;
+      uint64 virtual_quote = 5;
+      uint64 real_base_before = 6;
+      uint64 real_quote_before = 7;
+      uint64 real_base_after = 8;
+      uint64 real_quote_after = 9;
+      uint64 amount_in = 10;
+      uint64 amount_out = 11;
+      uint64 protocol_fee = 12;
+      uint64 platform_fee = 13;
+      uint64 share_fee = 14;
+      TradeDirectionEnum trade_direction = 15;
+      PoolStatusEnum pool_status = 16;
 }
 
 message BuyExactIn_Instruction {
@@ -302,6 +329,15 @@ message PlatformParams {
       string name = 3;
       string web = 4;
       string img = 5;
+}
+enum PoolStatusEnum {
+    POOL_STATUS_FUND = 0;
+    POOL_STATUS_MIGRATE = 1;
+    POOL_STATUS_TRADE = 2;
+}
+enum TradeDirectionEnum {
+    TRADE_DIRECTION_BUY = 0;
+    TRADE_DIRECTION_SELL = 1;
 }
 message VestingParams {
       uint64 total_locked_amount = 1;
