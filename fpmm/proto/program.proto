@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package substreams.v1.program;
+
+message Data {
+    repeated AdminStateInitialized_Event admin_state_initialized_event_list = 1;
+    repeated BetCreated_Event bet_created_event_list = 2;
+    repeated BetInitialized_Event bet_initialized_event_list = 3;
+    repeated BuyShares_Event buy_shares_event_list = 4;
+    repeated SellShares_Event sell_shares_event_list = 5;
+    repeated Buy_Instruction buy_instruction_list = 6;
+    repeated CreateBet_Instruction create_bet_instruction_list = 7;
+    repeated GetPrice_Instruction get_price_instruction_list = 8;
+    repeated InitAdmin_Instruction init_admin_instruction_list = 9;
+    repeated InitBet_Instruction init_bet_instruction_list = 10;
+    repeated Sell_Instruction sell_instruction_list = 11;
+}
+message AdminStateInitialized_Event {
+  string trx_hash = 1;
+      string admin = 2;
+      bool is_initialised = 3;
+}message BetCreated_Event {
+  string trx_hash = 1;
+      uint64 bet_id = 2;
+      string creator = 3;
+      string bet_prompt = 4;
+      int64 expiration_at = 5;
+      uint64 initial_liq = 6;
+      string yes_symbol = 7;
+      string yes_uri = 8;
+      string no_symbol = 9;
+      string no_uri = 10;
+}message BetInitialized_Event {
+  string trx_hash = 1;
+      uint64 bet_id = 2;
+      string creator = 3;
+      int64 expiration_at = 4;
+}message BuyShares_Event {
+  string trx_hash = 1;
+      uint64 bet_id = 2;
+      string buyer = 3;
+      uint64 outcome = 4;
+      uint64 amount = 5;
+      uint64 shares = 6;
+}message SellShares_Event {
+  string trx_hash = 1;
+      uint64 bet_id = 2;
+      string seller = 3;
+      uint64 outcome = 4;
+      uint64 shares = 5;
+      uint64 amount_withdraw = 6;
+}
+
+message Buy_Instruction {
+  string trx_hash = 1;
+    uint64 bet_id = 2;
+    uint64 outcome = 3;
+    uint64 amt = 4;
+    string acct_signer = 5;
+    string acct_bet = 6;
+    string acct_usdc = 7;
+    string acct_sender_token_account = 8;
+    string acct_recipient_token_account = 9;
+    string acct_mint_yes = 10;
+    string acct_mint_no = 11;
+    string acct_destination_yes = 12;
+    string acct_destination_no = 13;
+    string acct_token_program = 14;
+}
+message CreateBet_Instruction {
+  string trx_hash = 1;
+    uint64 bet_id = 2;
+    uint64 initial_liq = 3;
+    string bet_prompt = 4;
+    int64 expiration_at = 5;
+    string yes_symbol = 6;
+    string yes_uri = 7;
+    string no_symbol = 8;
+    string no_uri = 9;
+    string acct_signer = 10;
+    string acct_bet = 11;
+    string acct_mint_yes = 12;
+    string acct_mint_no = 13;
+    string acct_metadata_yes = 14;
+    string acct_metadata_no = 15;
+    string acct_token_program = 16;
+}
+message GetPrice_Instruction {
+  string trx_hash = 1;
+    uint64 side = 2;
+    string acct_bet = 3;
+}
+message InitAdmin_Instruction {
+  string trx_hash = 1;
+    string acct_admin_state = 2;
+    string acct_signer = 3;
+}
+message InitBet_Instruction {
+  string trx_hash = 1;
+    uint64 bet_id = 2;
+    string acct_signer = 3;
+    string acct_bet = 4;
+    string acct_usdc = 5;
+    string acct_sender_token_account = 6;
+    string acct_recipient_token_account = 7;
+    string acct_mint_yes = 8;
+    string acct_mint_no = 9;
+    string acct_destination_yes = 10;
+    string acct_destination_no = 11;
+    string acct_token_program = 12;
+}
+message Sell_Instruction {
+  string trx_hash = 1;
+    uint64 bet_id = 2;
+    uint64 outcome = 3;
+    uint64 shares = 4;
+    string acct_signer = 5;
+    string acct_bet = 6;
+    string acct_usdc = 7;
+    string acct_sender_token_account = 8;
+    string acct_recipient_token_account = 9;
+    string acct_mint_yes = 10;
+    string acct_mint_no = 11;
+    string acct_destination_yes = 12;
+    string acct_destination_no = 13;
+    string acct_token_program = 14;
+}
+
